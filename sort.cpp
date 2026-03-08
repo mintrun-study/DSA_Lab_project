@@ -12,7 +12,7 @@ void selectionSort(int a[], int n) {
 }
 
 
-void selectionSortoptimize1(int a[], int n) {
+void selectionSort_optimize1(int a[], int n) {
     int r = n;
     for (int i = 0; i < r - 1; ++i) {
         int cur_min = i;
