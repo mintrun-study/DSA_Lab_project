@@ -1,7 +1,7 @@
 #include "process.h"
 #include "sort.h"
 
-typedef void (*SortFunction)(std::vector<int>&);
+typedef void (*SortFunction)(vector<int>& arr, int n,  long long & count_comparision);
 
 SortFunction SortingAlgorithm(const string& algorithm){
     if (algorithm == "selection-sort") return selectionSort;
@@ -13,22 +13,26 @@ SortFunction SortingAlgorithm(const string& algorithm){
     //if (algorithm == "quick-sort")     return quickSort;
     //if (algorithm == "radix-sort")     return radixSort;
     //if (algorithm == "counting-sort")  return countingSort;
-    //if (algorithm == "binary-insertion-sort") return binaryInsertionSort;
+    //if (algorithm == "binary-insertion-sort") return binaryinsertionSort;
     //if (algorithm == "shaker-sort")    return shakerSort;
     if (algorithm == "flash-sort")     return flashSort;
     return nullptr;
 }
 
 // Hàm đa năng: Nhận vào tên thuật toán, một mảng, và hàm sắp xếp tương ứng
-double measureRunningTime(SortFunction sortFunc, std::vector<int>& arr) {
+pair<double,long long> measureTimeCompare(SortFunction sortFunc, vector<int>& arr, int n) {
+    pair<double,long long> ans;
+    long long cnt;
     auto start = std::chrono::high_resolution_clock::now();
     
-    sortFunc(arr); // Thực thi thuật toán được truyền vào
+
+    sortFunc(arr,n,cnt); // Thực thi thuật toán được truyền vào
     
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> duration = end - start;
-    
-    return duration.count();
+    ans.first = duration.count();
+    ans.second = cnt;
+    return ans;
 }
 
 void ReadFile(string input_file){
