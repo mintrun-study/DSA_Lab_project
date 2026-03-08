@@ -135,13 +135,19 @@ void merge(int arr[], int left, int mid, int right){
     }
 }
 
-void mergeSort(int arr[], int left, int right){
+void mergeSort(int arr[], int n){
+    if(arr!=nullptr){
+        mergeSortAlgorithm(arr, 0, n - 1);
+    }
+}
+
+void mergeSortAlgorithm(int arr[], int left, int right){
     
     if (left >= right)
         return;
 
     int mid = left + (right - left) / 2;
-    mergeSort(arr, left, mid);
-    mergeSort(arr, mid + 1, right);
+    mergeSortAlgorithm(arr, left, mid);
+    mergeSortAlgorithm(arr, mid + 1, right);
     merge(arr, left, mid, right);
 }
