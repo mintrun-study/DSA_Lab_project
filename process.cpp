@@ -1,6 +1,9 @@
 #include "process.h"
 #include "sort.h"
 
+vector<int> input; vector<int> arr_copy;
+int n;
+
 typedef void (*SortFunction)(vector<int>& arr, int n,  long long & count_comparision);
 
 SortFunction SortingAlgorithm(const string& algorithm){
@@ -22,7 +25,7 @@ SortFunction SortingAlgorithm(const string& algorithm){
 // Hàm đa năng: Nhận vào tên thuật toán, một mảng, và hàm sắp xếp tương ứng
 pair<double,long long> measureTimeCompare(SortFunction sortFunc, vector<int>& arr, int n) {
     pair<double,long long> ans;
-    long long cnt;
+    long long cnt = 0;
     auto start = std::chrono::high_resolution_clock::now();
     
 
@@ -35,8 +38,20 @@ pair<double,long long> measureTimeCompare(SortFunction sortFunc, vector<int>& ar
     return ans;
 }
 
-void ReadFile(string input_file){
-    //Do
+void ReadFile(string input_file, vector<int> & a, int& n){
+    ifstream f(input_file);
+    if(!f){
+        cout<<"Can not open file" <<endl;
+        return;
+    }
+    else{
+        int x;
+        while(f>>x){
+            a.push_back(x);
+        }
+    }
+    n = a.size();
+    f.close();
 }
 
 
@@ -46,7 +61,15 @@ void runCommand1(const std::string& algorithm, const std::string& input_file, co
     cout<<"ALGORITHM MODE \n";
     cout<<"Algorithm: " <<algorithm<<endl;
     cout<<"Input file: " << input_file<<endl;
+    ReadFile(input_file, input,n);
+    arr_copy = input;
+    cout<<"Input size: "<<n<<endl;
     cout << "-------------------------\n";
+    
+    auto output = measureTimeCompare(SortingAlgorithm(algorithm),arr_copy,n);
+
+    if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
+    if(output_param == "-both" || output_param == "-comp")cout<<"Comparisions: "<<output.second<<endl;
 }
 
 // Command 2: Run on the data generated automatically with specified size and order
