@@ -16,8 +16,10 @@ bool isNumber(string s){
 }
 
 int main(int argc, char * argv[]){
-    if(argc < 5) cout<<"invaild number of arguments"<<endl;
+    if(argc < 5){
+    cout<<"invaild number of arguments"<<endl;
     return 1;
+    }
     
     string mode = argv[1];
 
@@ -30,7 +32,9 @@ int main(int argc, char * argv[]){
                 //Command 3
             }
             else{
-                //Command 1
+                const string input_file = argv[3];
+                string output = argv[4];
+                runCommand1(algorithm,input_file,output);
             }
         }
         else if(argc == 6){

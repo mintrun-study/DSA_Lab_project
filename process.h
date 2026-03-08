@@ -1,12 +1,15 @@
 #ifndef PROCESS
 #define PROCESS
 
-#include "process.cpp"
 #include <iostream>
 #include <chrono>
+#include <fstream>
+#include <vector>
 using namespace std;
 
-int a[500001],b[500001];
+extern std::vector<int> input; extern std::vector<int> arr_copy;
+extern int n;
+
 
 // Command 1: Run a sorting algorithm on user-provided data
 void runCommand1(const std::string& algorithm, const std::string& input_file, const std::string& output_param);

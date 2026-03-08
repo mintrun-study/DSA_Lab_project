@@ -2,7 +2,6 @@
 
                                                         
 void selectionSort(vector<int> & a, int n, long long & cmp) {
-    int cmp = 0;
     for (int i = 0; ++cmp && i < n - 1;++i) {
         int cur_min = i;
         for (int j = i + 1; ++cmp && j < n; ++j)
@@ -15,7 +14,6 @@ void selectionSort(vector<int> & a, int n, long long & cmp) {
 
 void selectionSort_optimize1(vector<int> & a, int n, long long & cmp) {
     int r = n;
-    int cmp = 0;
     for (int i = 0;++cmp && i < r - 1; ++i) {
         int cur_min = i;
         int cur_max = i;
@@ -32,7 +30,6 @@ void selectionSort_optimize1(vector<int> & a, int n, long long & cmp) {
 }
 void insertionSort(vector<int> & a, int n, long long & cmp)
 {
-    long long cmp = 0;
 	for (int i = 1;++cmp && i < n; i++)
 	{
 		int k = i - 1;
