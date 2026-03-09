@@ -248,3 +248,57 @@ void mergeSortAlgorithm(vector<int> & arr, int left, int right, long long & cmp)
     mergeSortAlgorithm(arr, mid + 1, right, cmp);
     merge(arr, left, mid, right, cmp);
 }
+
+void bubbleSort(vector<int>& a,int n, long long& cmp) {
+    for (int i = 0;++cmp && i < n - 1; i++)
+        for (int j = 0; ++cmp && j < n - i - 1; j++) {
+            
+            if (++cmp && a[j] > a[j + 1]) swap(a[j], a[j + 1]);
+        }
+}
+
+void shakerSort(vector<int>& a,int n, long long& cmp) {
+    int left = 0, right = n - 1;
+    while (++cmp && left < right) {
+        for (int i = left;++cmp && i < right; i++) {
+            cmp++;
+            if (++cmp && a[i] > a[i + 1]) swap(a[i], a[i + 1]);
+        }
+        right--;
+        for (int i = right; ++cmp && i > left; i--) {
+            cmp++;
+            if ( ++cmp && a[i - 1] > a[i]) swap(a[i - 1], a[i]);
+        }
+        left++;
+    }
+}
+
+void countingSort(vector<int>& a,int n, long long& cmp) {
+    if (++cmp && a.empty()) return;
+    int maxVal = *max_element(a.begin(), a.end());
+    vector<int> count(maxVal + 1, 0);
+    for (int x : a) count[x]++;
+    int index = 0;
+    for (int i = 0; ++cmp && i <= maxVal; i++)
+        while (++cmp && count[i]-- > 0)
+            a[index++] = i;
+}
+
+void partition(vector<int> &a, int first, int last, long long& cmp) {
+    int pivot = a[(first + last)/2];
+    int i=first, j=last;
+    do {
+        while (++cmp && a[i] < pivot) i++;
+        while (++cmp && a[j] > pivot) j--;
+        if (++cmp && i <= j) {
+            swap(a[i], a[j]);
+            i++; j--;
+        }
+    } while (++cmp && i <= j);
+    if (++cmp && first < j) partition(a, first, j, cmp);
+    if (++cmp && i < last) partition(a, i, last, cmp);
+}
+
+void quickSort(vector<int> &a, int n, long long& cmp) {
+    partition(a, 0, n, cmp);
+}

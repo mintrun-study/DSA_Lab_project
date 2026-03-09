@@ -24,35 +24,44 @@ int main(int argc, char * argv[]){
     string mode = argv[1];
 
     if(mode == "-a"){
-        string algorithm = argv[2];
+        const string algorithm = argv[2];
 
         if(argc == 5){
             
             if(isNumber(argv[3])){
+                //Command 3
                 int input_size = stoi(argv[3]);
-                string output_param = argv[4];
-                runCommand3(algorithm, input_size, output_param);
+                const string output = argv[4];
+                runCommand3(algorithm,input_size,output);
             }
             else{
+                //Command 1
                 const string input_file = argv[3];
                 string output = argv[4];
                 runCommand1(algorithm,input_file,output);
             }
         }
         else if(argc == 6){
+            //Command 2
             int input_size = stoi(argv[3]);
-            string input_order = argv[4];
-            string output_param = argv[5];
-            runCommand2(algorithm, input_size, input_order, output_param);
+            const string input_order = argv[4];
+            const string output = argv[5];
+            runCommand2(algorithm,input_size,input_order,output);
         }
     }
     else if(mode == "-c"){
-        string algorithm1, algorithm2;
+        const string algorithm1 = argv[2], algorithm2 = argv[3];
         if(argc == 5){
             //Command 4
+            const string input_file = argv[4];
+            runCommand4(algorithm1,algorithm2,input_file);
         }
         else if(argc == 6){
             //Command 5
+            int input_size = stoi(argv[4]);
+            const string input_order = argv[5];
+
+            runCommand5(algorithm1,algorithm2,input_size,input_order);
         }
     }
     else{
