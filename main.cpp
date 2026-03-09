@@ -29,7 +29,9 @@ int main(int argc, char * argv[]){
         if(argc == 5){
             
             if(isNumber(argv[3])){
-                //Command 3
+                int input_size = stoi(argv[3]);
+                string output_param = argv[4];
+                runCommand3(algorithm, input_size, output_param);
             }
             else{
                 const string input_file = argv[3];
@@ -38,7 +40,10 @@ int main(int argc, char * argv[]){
             }
         }
         else if(argc == 6){
-            //Command 2
+            int input_size = stoi(argv[3]);
+            string input_order = argv[4];
+            string output_param = argv[5];
+            runCommand2(algorithm, input_size, input_order, output_param);
         }
     }
     else if(mode == "-c"){

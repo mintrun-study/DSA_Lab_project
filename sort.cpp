@@ -43,6 +43,43 @@ void insertionSort(vector<int> & a, int n, long long & cmp)
 	}
 }
 
+void binaryinsertionSort(vector<int>& a, int n, long long& cmp) {
+    for (int i = 1; ++cmp && i < n; ++i) {
+        int key = a[i];
+        int first = 0, last = i - 1;
+        
+        while (++cmp && first <= last) {
+            int m = (first + last) / 2;
+            ++cmp;
+            if (key < a[m]) last = m - 1;
+            else            first = m + 1;
+        }
+        
+        for (int j = i - 1; ++cmp && j >= first; --j)
+            a[j + 1] = a[j];
+        
+        a[first] = key;
+    }
+}
+
+void shellSort(vector<int>& a, int n, long long& cmp) {
+    int gap = n/2;
+    while (++cmp && gap > 0) {
+        int i = gap;
+        while (++cmp && i < n) {
+            int temp = a[i];
+            int j = i;
+            while (++cmp && j >= gap && ++cmp && a[j-gap] > a[j]) {
+                a[j] = a[j-gap];
+                j -= gap;
+            }
+            a[j] = temp;
+            i++;
+        }
+        gap /= 2;
+    }
+}
+
 void flashSort(vector<int> & a, int n, long long & cmp)
 {
 	int minVal = a[0];
@@ -94,6 +131,65 @@ void flashSort(vector<int> & a, int n, long long & cmp)
 		}
 	}
 	insertionSort(a, n, cmp);
+}
+
+void radixSort(vector<int>& a, int n, long long& cmp) {
+    int max_val = a[0];
+    for (int i = 1; ++cmp && i < n; ++i)
+        if (++cmp && a[i] > max_val) max_val = a[i];
+
+    int digits = 0, div;
+    do {
+        digits++;
+        div = max_val / (int)pow(10, digits);
+    } while (div > 0);
+
+    vector<vector<int>> tempArr(10, vector<int>(n));
+    int tempCount[10];
+
+    for (int i = 0; i < digits; ++i) {
+        int exp = (int)pow(10, i);
+
+        for (int j = 0; ++cmp && j < 10; ++j)
+            tempCount[j] = 0;
+
+        for (int j = 0; ++cmp && j < n; ++j) {
+            int idx = (a[j] / exp) % 10;
+            tempArr[idx][tempCount[idx]++] = a[j];
+        }
+
+        int idx = 0;
+        for (int j = 0; ++cmp && j < 10; ++j)
+            for (int k = 0; ++cmp && k < tempCount[j]; ++k)
+                a[idx++] = tempArr[j][k];
+    }
+}
+
+void heapRebuild(int start, vector<int>& a, int n, long long& cmp) {
+    int leftChild = 2*start + 1;
+    if (++cmp && leftChild >= n) return;
+    int largerChild = leftChild;
+    int rightChild = 2*start + 2;
+    if (++cmp && rightChild < n)
+        if (++cmp && a[rightChild] > a[largerChild]) largerChild = rightChild;
+
+    if (++cmp && a[start] < a[largerChild]) {
+        swap(a[start], a[largerChild]);
+        heapRebuild(largerChild, a, n, cmp);
+    }
+}
+
+void heapSort(vector<int>& a, int n, long long& cmp) {
+    for (int index = (n-1)/2; ++cmp && index >= 0; index--)
+        heapRebuild(index, a, n, cmp);
+
+    swap(a[0], a[n-1]);
+    int heapSize = n-1;
+    while (++cmp && heapSize > 1) {
+        heapRebuild(0, a, heapSize, cmp);
+        heapSize--;
+        swap(a[0], a[heapSize]);
+    }
 }
 
 void merge(vector<int> & arr, int left, int mid, int right, long long & cmp){           

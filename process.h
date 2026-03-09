@@ -10,6 +10,8 @@ using namespace std;
 extern std::vector<int> input; extern std::vector<int> arr_copy;
 extern int n;
 
+string getAlgoName(const string& s);
+string getOrderName(const string& s);
 
 // Command 1: Run a sorting algorithm on user-provided data
 void runCommand1(const std::string& algorithm, const std::string& input_file, const std::string& output_param);
