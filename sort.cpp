@@ -4,7 +4,7 @@
 void selectionSort(vector<int> & a, int n, long long & cmp) {
     for (int i = 0; ++cmp && i < n - 1;++i) {
         int cur_min = i;
-        for (int j = i + 1; ++cmp && j < n; ++j)
+        for (int j = i + 1;++cmp && j < n; ++j)
             if (++cmp && a[cur_min] > a[j])
                 cur_min = j;
         swap(a[cur_min], a[i]);
@@ -300,5 +300,5 @@ void partition(vector<int> &a, int first, int last, long long& cmp) {
 }
 
 void quickSort(vector<int> &a, int n, long long& cmp) {
-    partition(a, 0, n, cmp);
+    partition(a, 0, n - 1, cmp);
 }

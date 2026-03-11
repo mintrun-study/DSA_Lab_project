@@ -1,5 +1,6 @@
 #include "process.h"
 #include "sort.h"
+#include "time.h"
 
 vector<int> input; vector<int> arr_copy;
 int n;
@@ -16,6 +17,7 @@ string getAlgoName(const string& s) {
     if (s == "counting-sort")   return "Counting Sort";
     if (s == "radix-sort")      return "Radix Sort";
     if (s == "flash-sort")      return "Flash Sort";
+    if (s == "selection-sort-optimize") return "Selection Sort Optimize";
     return s;
 }
 
@@ -27,9 +29,10 @@ string getOrderName(const string& s) {
     return s;
 }
 
-typedef void (*SortFunction)(vector<int>& arr, int n,  long long & count_comparision);
+typedef void (*SortFunction1)(vector<int>& arr, int n,  long long & count_comparision);
+typedef void (*SortFunction2)(vector<int>& arr, int n);
 
-SortFunction SortingAlgorithm(const string& algorithm){
+SortFunction1 SortingAlgorithm(const string& algorithm){
     if (algorithm == "selection-sort") return selectionSort;
     if (algorithm == "insertion-sort") return insertionSort;
     if (algorithm == "shell-sort")     return shellSort;
@@ -42,18 +45,41 @@ SortFunction SortingAlgorithm(const string& algorithm){
     if (algorithm == "binary-insertion-sort") return binaryinsertionSort;
     if (algorithm == "shaker-sort")    return shakerSort;
     if (algorithm == "flash-sort")     return flashSort;
+    if (algorithm == "selection-sort-optimize") return selectionSort_optimize1;
+    return nullptr;
+}
+
+SortFunction2 SortingAlgorithm2(const string& algorithm){
+    if (algorithm == "selection-sort") return selectionSort;
+    if (algorithm == "insertion-sort") return insertionSort;
+    if (algorithm == "shell-sort")     return shellSort;
+    if (algorithm == "bubble-sort")    return bubbleSort;
+    if (algorithm == "heap-sort")      return heapSort;
+    if (algorithm == "merge-sort")     return mergeSort;
+    if (algorithm == "quick-sort")     return quickSort;
+    if (algorithm == "radix-sort")     return radixSort;
+    if (algorithm == "counting-sort")  return countingSort;
+    if (algorithm == "binary-insertion-sort") return binaryinsertionSort;
+    if (algorithm == "shaker-sort")    return shakerSort;
+    if (algorithm == "flash-sort")     return flashSort;
+    if (algorithm == "selection-sort-optimize") return selectionSort_optimize1;
     return nullptr;
 }
 
 // Hàm đa năng: Nhận vào tên thuật toán, một mảng, và hàm sắp xếp tương ứng
-pair<double,long long> measureTimeCompare(SortFunction sortFunc, vector<int>& arr, int n) {
+pair<double,long long> measureTimeCompare(const string algorithm, vector<int>& arr, int n, string output) {
     pair<double,long long> ans;
     long long cnt = 0;
     auto start = std::chrono::high_resolution_clock::now();
     
-
-    sortFunc(arr,n,cnt); // Thực thi thuật toán được truyền vào
-    
+    if(output == "-time"){
+        SortFunction2 sortFunc2 = SortingAlgorithm2(algorithm);
+        sortFunc2(arr,n);
+    }
+    else{
+        SortFunction1 sortFunc = SortingAlgorithm(algorithm);
+        sortFunc(arr,n,cnt); // Thực thi thuật toán được truyền vào
+    }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> duration = end - start;
     ans.first = duration.count();
@@ -61,7 +87,7 @@ pair<double,long long> measureTimeCompare(SortFunction sortFunc, vector<int>& ar
     return ans;
 }
 
-void ReadFile(string input_file, vector<int> & a, int& n){
+void ReadFile(string input_file, vector<int> & a, int& n    ){
     ifstream f(input_file);
     if(!f){
         cout<<"Can not open file" <<endl;
@@ -117,7 +143,7 @@ void runCommand1(const std::string& algorithm, const std::string& input_file, co
     cout<<"Input size: "<<n<<endl;
     cout << "-------------------------\n";
     
-    auto output = measureTimeCompare(SortingAlgorithm(algorithm),arr_copy,n);
+    auto output = measureTimeCompare(algorithm,arr_copy,n, output_param);
 
     if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
     if(output_param == "-both" || output_param == "-comp")cout<<"Comparisions: "<<output.second<<endl;
@@ -138,7 +164,7 @@ void runCommand2(const std::string& algorithm, int input_size, const std::string
 
     WriteFile("input.txt",arr_copy , input_size);
 
-    auto output = measureTimeCompare(SortingAlgorithm(algorithm),arr_copy,input_size);
+    auto output = measureTimeCompare(algorithm,arr_copy,input_size,output_param);
     if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
     if(output_param == "-both" || output_param == "-comp")cout<<"Comparisions: "<<output.second<<endl;
 
@@ -162,12 +188,9 @@ void runCommand3(const std::string& algorithm, int input_size, const std::string
         cout << "\nInput order: " << getOrderName(orders[i]) << "\n";
         cout << "-------------------------\n";
 
-        SortFunction sf = SortingAlgorithm(algorithm);
-        if (sf == nullptr) { cout << "Unknown algorithm\n"; return; }
-
-        auto output = measureTimeCompare(sf, arr, input_size);
+        auto output = measureTimeCompare(algorithm, arr, input_size,output_param);
         if (output_param == "-both" || output_param == "-time")
-            cout << "Running time: " << output.first << " milliseconds\n";
+            cout << "Running time: " << output.first << "\n";
         if (output_param == "-both" || output_param == "-comp")
             cout << "Comparisons: " << output.second << "\n";
     }
@@ -184,9 +207,9 @@ void runCommand4(const std::string& algorithm_1, const std::string& algorithm_2,
     cout << "-------------------------\n";
     arr_copy = input;
     vector<int> arr_copy2 = input;
-    auto output1 = measureTimeCompare(SortingAlgorithm(algorithm_1),arr_copy,n);
+    auto output1 = measureTimeCompare(algorithm_1,arr_copy,n,"");
 
-    auto output2 = measureTimeCompare(SortingAlgorithm(algorithm_2),arr_copy2,n);
+    auto output2 = measureTimeCompare(algorithm_2,arr_copy2,n,"");
     cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
 
     cout<<"Comparisions: "<<output1.second << " | "<<output2.second <<endl;
@@ -201,11 +224,13 @@ void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2,
     cout << "-------------------------\n"; 
     
     GenerateData(input,input_size,input_order);
+    WriteFile("input.txt",input,input_size);
+
     arr_copy = input;
     vector<int> arr_copy2 = input;
-    auto output1 = measureTimeCompare(SortingAlgorithm(algorithm_1),arr_copy,input_size);
+    auto output1 = measureTimeCompare(algorithm_1,arr_copy,input_size,"");
 
-    auto output2 = measureTimeCompare(SortingAlgorithm(algorithm_2),arr_copy2,input_size);
+    auto output2 = measureTimeCompare(algorithm_2,arr_copy2,input_size,"");
     cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
 
     cout<<"Comparisions: "<<output1.second << " | "<<output2.second <<endl;
