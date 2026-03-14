@@ -147,7 +147,7 @@ void runCommand1(const std::string& algorithm, const std::string& input_file, co
     auto output = measureTimeCompare(algorithm,arr_copy,n, output_param);
 
     if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
-    if(output_param == "-both" || output_param == "-comp")cout<<"Comparisions: "<<output.second<<endl;
+    if(output_param == "-both" || output_param == "-comp")cout<<"Comparisons: "<<output.second<<endl;
 
     WriteFile("output.txt", arr_copy, n);
 }
@@ -167,7 +167,7 @@ void runCommand2(const std::string& algorithm, int input_size, const std::string
 
     auto output = measureTimeCompare(algorithm,arr_copy,input_size,output_param);
     if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
-    if(output_param == "-both" || output_param == "-comp")cout<<"Comparisions: "<<output.second<<endl;
+    if(output_param == "-both" || output_param == "-comp")cout<<"Comparisons: "<<output.second<<endl;
 
     WriteFile("output.txt", arr_copy, input_size);
 }
@@ -234,7 +234,7 @@ void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2,
     auto output2 = measureTimeCompare(algorithm_2,arr_copy2,input_size,"");
     cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
 
-    cout<<"Comparisions: "<<output1.second << " | "<<output2.second <<endl;
+    cout<<"Comparisons: "<<output1.second << " | "<<output2.second <<endl;
 }
 
 // Command All: Run all sorting algorithms on generated data and print comparison table

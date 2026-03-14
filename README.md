@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is my Sorting Algorithms project in **Data Structure and Algorithms** course in **HCMUS**, which is supervised by Tran Thi Thao Nhi and Tran Hoang Quan. In this project, we implement several sorting algorithms (from $O(n^2)$ to $O(nlog(n))$ and $O(n)$ ) and analyze their performance across different data distributions.
+This is our Sorting Algorithms project for the **Data Structures and Algorithms** course at **HCMUS**, under the supervision of Tran Thi Thao Nhi and Tran Hoang Quan. In this project, we implement and benchmark 12 sorting algorithms ranging from $O(n^2)$ to $O(n\log n)$ and $O(n)$, analyzing their performance across different input sizes and data distributions.
 
 ## Features
 
@@ -22,7 +22,7 @@ g++ *.cpp -std=c++14 -o 02.exe
 ## File Structure
 - `main.cpp` — entry point, parses CLI arguments and calls the appropriate command
 - `sort.h / sort.cpp` — implements 12 sorting algorithms, each tracking comparison count
-- `time.h/time.cpp` - implements 12 sorting algorithms, without comparison count, for improve running time
+- `time.h / time.cpp` - implements 12 sorting algorithms, without comparison count, to improve running time
 - `process.h / process.cpp` — handles 5 commands, file I/O, and data generation
 
 ## Algorithms
@@ -110,4 +110,4 @@ By Comparisons:
 ```
 
 ## Credit
-You are free to use my code to do whatever you want unless you want to use it for your report in **Data Structures and Algorithms** course in **HCMUS**, you have to credit me.
+This repository is intended for educational purposes. You are welcome to reference or use our code freely, provided that you do not submit it as your own work in the **Data Structures and Algorithms** course at **HCMUS**. If you use any part of this project in your report or submission, proper credit must be given.

@@ -5,7 +5,6 @@
 #include "sort.h"
 #include "process.h"
 
-
 bool isNumber(string s){
     if(s.empty()) return false;
     for(char &c : s){
@@ -17,7 +16,7 @@ bool isNumber(string s){
 
 int main(int argc, char * argv[]){
     if(argc < 5){
-    cout<<"invaild number of arguments"<<endl;
+    cout<<"invalid number of arguments"<<endl;
     return 1;
     }
     
