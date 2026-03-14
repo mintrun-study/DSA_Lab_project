@@ -8,7 +8,11 @@ This is my Sorting Algorithms project in **Data Structure and Algorithms** cours
 
 - To improve running time of selection sort, which every case is $O(n^2)$, we decide to make an optimized Selection Sort. Instead of traversing and sorting from one way, now in this algorithm, we prefer making it two ways. 
 
-- The repository provides implementations of various algorithms in one of the most fundamental general purpose languages C++
+- The repository provides implementations of various algorithms in one of the most fundamental general purpose languages C++.
+
+- Each sorting algorithm has two versions: one with comparison counting (`sort.cpp`) and one without (`time.cpp`). When `-time` is used, the program runs the faster version to get more accurate running time measurements.
+
+- **Command `-all`**: Automatically runs all 12 algorithms on the same dataset and prints a ranking from fastest to slowest, both by running time and by number of comparisons.
 
 ## Compile
 ```bash
@@ -20,7 +24,6 @@ g++ *.cpp -std=c++14 -o 02.exe
 - `sort.h / sort.cpp` — implements 12 sorting algorithms, each tracking comparison count
 - `time.h/time.cpp` - implements 12 sorting algorithms, without comparison count, for improve running time
 - `process.h / process.cpp` — handles 5 commands, file I/O, and data generation
-
 
 ## Algorithms
 `selection-sort`, `insertion-sort`, `binary-insertion-sort`, `bubble-sort`, `shaker-sort`, `shell-sort`, `heap-sort`, `merge-sort`, `quick-sort`, `counting-sort`, `radix-sort`, `flash-sort`
@@ -42,6 +45,9 @@ g++ *.cpp -std=c++14 -o 02.exe
 
 # Command 5: Compare 2 algorithms on generated data
 02.exe -c [algo1] [algo2] [size] [order]
+
+# Command All: Run all 12 algorithms and print ranking
+02.exe -all [size] [order] [-time/-comp/-both]
 ```
 
 ## Examples
@@ -51,6 +57,8 @@ g++ *.cpp -std=c++14 -o 02.exe
 02.exe -a quick-sort 50000 -both
 02.exe -c merge-sort heap-sort input.txt
 02.exe -c quick-sort merge-sort 100000 -rand
+02.exe -all 100000 -rand -both
+02.exe -all 50000 -sorted -time
 ```
 
 ## Parameters
@@ -64,6 +72,42 @@ g++ *.cpp -std=c++14 -o 02.exe
 | `-time` | Print running time (ms) |
 | `-comp` | Print comparison count |
 | `-both` | Print both |
+
+## Command All
+Runs all 12 algorithms on the same generated dataset and prints a ranking from best to worst.
+
+```
+02.exe -all 50000 -rand -both
+```
+
+Output:
+```
+ALGORITHM MODE
+Input size: 50000
+Input order: Randomize
+
+Selection Sort Optimize:
+-------------------------
+Running time: ... ms
+Comparisons: ...
+
+...
+
+RANKING
+-------------------------
+By Running Time:
+1. Counting Sort: 0.4261 ms
+2. Flash Sort: 0.9361 ms
+3. Radix Sort: 1.146 ms
+...
+12. Bubble Sort: 9823.45 ms
+
+By Comparisons:
+1. Counting Sort: 115538
+2. Flash Sort: 432752
+3. Radix Sort: 600164
+...
+```
 
 ## Credit
 You are free to use my code to do whatever you want unless you want to use it for your report in **Data Structures and Algorithms** course in **HCMUS**, you have to credit me.
