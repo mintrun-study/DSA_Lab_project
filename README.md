@@ -1,8 +1,14 @@
 # DSA Lab Project — Sorting Algorithms
 
+## Overview
+
 This is my Sorting Algorithms project in **Data Structure and Algorithms** course in **HCMUS**, which is supervised by Tran Thi Thao Nhi and Tran Hoang Quan. In this project, we implement several sorting algorithms (from $O(n^2)$ to $O(nlog(n))$ and $O(n)$ ) and analyze their performance across different data distributions.
 
-## 
+## Features
+
+- To improve running time of selection sort, which every case is $O(n^2)$, we decide to make an optimized Selection Sort. Instead of traversing and sorting from one way, now in this algorithm, we prefer making it two ways. 
+
+- The repository provides implementations of various algorithms in one of the most fundamental general purpose languages C++
 
 ## Compile
 ```bash

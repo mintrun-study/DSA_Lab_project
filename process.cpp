@@ -8,6 +8,7 @@ int n;
 string getAlgoName(const string& s) {
     if (s == "selection-sort")  return "Selection Sort";
     if (s == "insertion-sort")  return "Insertion Sort";
+    if (s == "binary-insertion-sort") return "Binary Insertion Sort";
     if (s == "bubble-sort")     return "Bubble Sort";
     if (s == "shaker-sort")     return "Shaker Sort";
     if (s == "shell-sort")      return "Shell Sort";
@@ -199,28 +200,28 @@ void runCommand3(const std::string& algorithm, int input_size, const std::string
 // Command 4: Run two sorting algorithms on user-provided data
 void runCommand4(const std::string& algorithm_1, const std::string& algorithm_2, const std::string& input_file){
     cout<<"COMPARE MODE \n";
-    cout<<"Algorithm: " <<algorithm_1<<"||"<<algorithm_2<<endl;
-    cout<<"Input file: "<< input_file<<endl;
+    cout<<"Algorithm: " << getAlgoName(algorithm_1) << " | " << getAlgoName(algorithm_2) <<endl;
+    cout<<"Input file: "<< input_file <<endl;
     //Main Command
     ReadFile(input_file,input,n);
     cout<<"Input size: "<<n<<endl;
     cout << "-------------------------\n";
     arr_copy = input;
     vector<int> arr_copy2 = input;
-    auto output1 = measureTimeCompare(algorithm_1,arr_copy,n,"");
-
-    auto output2 = measureTimeCompare(algorithm_2,arr_copy2,n,"");
-    cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
-
-    cout<<"Comparisions: "<<output1.second << " | "<<output2.second <<endl;
+    auto output1 = measureTimeCompare(algorithm_1,arr_copy,n,"-both");
+    
+    auto output2 = measureTimeCompare(algorithm_2,arr_copy2,n,"-both");
+    cout<<"Running time: " << output1.first << " ms | "<< output2.first << " ms" <<endl;
+    
+    cout<<"Comparisons: "<<output1.second << " | "<<output2.second <<endl;
 }
 
 // Command 5: Run two sorting algorithms on the data generated automatically with a specified size and order
 void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2, int input_size, const std::string& input_order){
     cout<<"COMPARE MODE \n";
-    cout<<"Algorithm: " <<algorithm_1<<"||"<<algorithm_2<<endl;
-    cout<<"Input size: "<<input_size<<endl;
-    cout<<"Input order: "<<input_order<<endl;
+    cout<<"Algorithm: " << getAlgoName(algorithm_1) << " | " << getAlgoName(algorithm_2) <<endl;
+    cout<<"Input size: "<< input_size <<endl;
+    cout<<"Input order: "<< getOrderName(input_order) <<endl;
     cout << "-------------------------\n"; 
     
     GenerateData(input,input_size,input_order);
@@ -234,4 +235,67 @@ void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2,
     cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
 
     cout<<"Comparisions: "<<output1.second << " | "<<output2.second <<endl;
+}
+
+// Command All: Run all sorting algorithms on generated data and print comparison table
+void runCommandAll(int input_size, const string& input_order, const string& output_param){
+    cout << "ALGORITHM MODE \n";
+    cout << "Input size: " << input_size << "\n";
+    cout << "Input order: " << getOrderName(input_order) << "\n\n";
+
+    string algos[] = {
+        "selection-sort-optimize", "insertion-sort", "binary-insertion-sort",
+        "bubble-sort", "shaker-sort", "shell-sort", "heap-sort",
+        "merge-sort", "quick-sort", "counting-sort", "radix-sort", "flash-sort"
+    };
+
+    vector<int> base;
+    GenerateData(base, input_size, input_order);
+
+    double times[12];
+    long long cmps[12];
+
+    // Run all algorithms and print results
+    for(int i = 0; i < 12; i++){
+        vector<int> arr = base;
+        auto result = measureTimeCompare(algos[i], arr, input_size, output_param);
+        times[i] = result.first;
+        cmps[i]  = result.second;
+
+        cout << getAlgoName(algos[i]) << ":\n";
+        cout << "-------------------------\n";
+        if(output_param == "-both" || output_param == "-time")
+            cout << "Running time: " << times[i] << " ms\n";
+        if(output_param == "-both" || output_param == "-comp")
+            cout << "Comparisons: " << cmps[i] << "\n";
+        cout << "\n";
+    }
+
+    // Sort index array to get ranking
+    int rank[12] = {0,1,2,3,4,5,6,7,8,9,10,11};
+
+    cout << "RANKING\n";
+    cout << "-------------------------\n";
+
+    if(output_param == "-both" || output_param == "-time"){
+        for(int i = 0; i < 12; i++)
+            for(int j = i+1; j < 12; j++)
+                if(times[rank[i]] > times[rank[j]]) swap(rank[i], rank[j]);
+
+        cout << "By Running Time:\n";
+        for(int i = 0; i < 12; i++)
+            cout << i+1 << ". " << getAlgoName(algos[rank[i]]) << ": " << times[rank[i]] << " ms\n";
+        cout << "\n";
+    }
+
+    if(output_param == "-both" || output_param == "-comp"){
+        for(int i = 0; i < 12; i++) rank[i] = i; // reset
+        for(int i = 0; i < 12; i++)
+            for(int j = i+1; j < 12; j++)
+                if(cmps[rank[i]] > cmps[rank[j]]) swap(rank[i], rank[j]);
+
+        cout << "By Comparisons:\n";
+        for(int i = 0; i < 12; i++)
+            cout << i+1 << ". " << getAlgoName(algos[rank[i]]) << ": " << cmps[rank[i]] << "\n";
+    }
 }

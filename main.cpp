@@ -60,13 +60,19 @@ int main(int argc, char * argv[]){
             //Command 5
             int input_size = stoi(argv[4]);
             const string input_order = argv[5];
-
             runCommand5(algorithm1,algorithm2,input_size,input_order);
+        }
+    }
+    else if(mode == "-all"){
+        if(argc == 5){
+            int input_size = stoi(argv[2]);
+            string input_order = argv[3];
+            string output_param = argv[4];
+            runCommandAll(input_size, input_order, output_param);
         }
     }
     else{
         cout<<"Unknown mode"<<endl;
-
         return 1;
     }
     return 0;
