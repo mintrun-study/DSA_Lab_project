@@ -23,7 +23,7 @@ g++ *.cpp -std=c++14 -o 02.exe
 - `main.cpp` — entry point, parses CLI arguments and calls the appropriate command
 - `sort.h / sort.cpp` — implements 12 sorting algorithms, each tracking comparison count
 - `time.h / time.cpp` - implements 12 sorting algorithms, without comparison count, to improve running time
-- `process.h / process.cpp` — handles 5 commands, file I/O, and data generation
+- `process.h / process.cpp` — handles 6 commands (1 extra command), file I/O, and data generation
 
 ## Algorithms
 `selection-sort`, `insertion-sort`, `binary-insertion-sort`, `bubble-sort`, `shaker-sort`, `shell-sort`, `heap-sort`, `merge-sort`, `quick-sort`, `counting-sort`, `radix-sort`, `flash-sort`
@@ -46,7 +46,7 @@ g++ *.cpp -std=c++14 -o 02.exe
 # Command 5: Compare 2 algorithms on generated data
 02.exe -c [algo1] [algo2] [size] [order]
 
-# Command All: Run all 12 algorithms and print ranking
+# Command 6: Run all 12 algorithms and print ranking
 02.exe -all [size] [order] [-time/-comp/-both]
 ```
 
@@ -73,7 +73,7 @@ g++ *.cpp -std=c++14 -o 02.exe
 | `-comp` | Print comparison count |
 | `-both` | Print both |
 
-## Command All
+## Command 6
 Runs all 12 algorithms on the same generated dataset and prints a ranking from best to worst.
 
 ```

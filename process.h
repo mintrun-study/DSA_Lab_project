@@ -29,6 +29,6 @@ void runCommand4(const std::string& algorithm_1, const std::string& algorithm_2,
 void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2, int input_size, const std::string& input_order);
 
 // Command All: Run all sorting algorithms on generated data and print comparison table
-void runCommandAll(int input_size, const std::string& input_order, const std::string& output_param);
+void runCommand6(int input_size, const std::string& input_order, const std::string& output_param);
 
 #endif

@@ -146,7 +146,7 @@ void runCommand1(const std::string& algorithm, const std::string& input_file, co
     
     auto output = measureTimeCompare(algorithm,arr_copy,n, output_param);
 
-    if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
+    if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<< " ms" <<endl;
     if(output_param == "-both" || output_param == "-comp")cout<<"Comparisons: "<<output.second<<endl;
 
     WriteFile("output.txt", arr_copy, n);
@@ -166,7 +166,7 @@ void runCommand2(const std::string& algorithm, int input_size, const std::string
     WriteFile("input.txt",arr_copy , input_size);
 
     auto output = measureTimeCompare(algorithm,arr_copy,input_size,output_param);
-    if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<<endl;
+    if(output_param == "-both" || output_param == "-time") cout<<"Running time: "<<output.first<< " ms" <<endl;
     if(output_param == "-both" || output_param == "-comp")cout<<"Comparisons: "<<output.second<<endl;
 
     WriteFile("output.txt", arr_copy, input_size);
@@ -191,7 +191,7 @@ void runCommand3(const std::string& algorithm, int input_size, const std::string
 
         auto output = measureTimeCompare(algorithm, arr, input_size,output_param);
         if (output_param == "-both" || output_param == "-time")
-            cout << "Running time: " << output.first << "\n";
+            cout << "Running time: " << output.first << " ms" << "\n";
         if (output_param == "-both" || output_param == "-comp")
             cout << "Comparisons: " << output.second << "\n";
     }
@@ -232,13 +232,13 @@ void runCommand5(const std::string& algorithm_1, const std::string& algorithm_2,
     auto output1 = measureTimeCompare(algorithm_1,arr_copy,input_size,"");
 
     auto output2 = measureTimeCompare(algorithm_2,arr_copy2,input_size,"");
-    cout<<"Running time: " << output1.first << " | "<<output2.first<<endl;
+    cout<<"Running time: " << output1.first << " ms" << " | "<<output2.first<< " ms"<<endl;
 
     cout<<"Comparisons: "<<output1.second << " | "<<output2.second <<endl;
 }
 
 // Command All: Run all sorting algorithms on generated data and print comparison table
-void runCommandAll(int input_size, const string& input_order, const string& output_param){
+void runCommand6(int input_size, const string& input_order, const string& output_param){
     cout << "ALGORITHM MODE \n";
     cout << "Input size: " << input_size << "\n";
     cout << "Input order: " << getOrderName(input_order) << "\n\n";

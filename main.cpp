@@ -67,7 +67,7 @@ int main(int argc, char * argv[]){
             int input_size = stoi(argv[2]);
             string input_order = argv[3];
             string output_param = argv[4];
-            runCommandAll(input_size, input_order, output_param);
+            runCommand6(input_size, input_order, output_param);
         }
     }
     else{
